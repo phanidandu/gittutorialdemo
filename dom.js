@@ -25,3 +25,15 @@ for(i=0;i<items.length;i++)
 {
     items[i].style.fontWeight='bold';
 }
+
+let li=document.getElementsByTagName('li');
+ 
+li[1].textContent='Hello 2';
+li[1].style.fontWeight='bold';
+li[1].style.backgroundColor='yellow';
+
+for(i=0;i<li.length;i++)
+{
+    li[i].style.backgroundColor='#f4f4f4';
+}
+
