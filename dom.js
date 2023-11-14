@@ -9,7 +9,7 @@
 //title1.innerHTML='<h3>Hello</h3>'
 //console.log(title1);
 //title1.style.borderBottom="solid 3px #000"
-let items=document.getElementsByClassName('list-group-item');
+/*let items=document.getElementsByClassName('list-group-item');
 console.log(items);
 console.log(items[1]);  
 //items[1].textContent='Hello 2';
@@ -55,8 +55,7 @@ lastitem.style.color='blue';
 let seconditem=document.querySelector('.list-group-item:nth-child(2)');
 seconditem.style.backgroundColor='green';
 
-let thirditem=document.querySelector('.list-group-item:nth-child(3)');
-//thirditem.style.display='none';
+let thirditem=document.querySelector('.list-group-item:nth-child(3)');thirditem.style.display='none';
 
 let titles=document.querySelectorAll('.title');
 let odd=document.querySelectorAll('li:nth-child(odd)');
@@ -69,4 +68,55 @@ for(let i=0;i<odd.length;i++)
 }
 
 let secitem=document.querySelectorAll('li:nth-child(2)');
-secitem[0].style.color='green';
+secitem[0].style.color='green'; 
+
+let itemlist=document.querySelector('#items');
+console.log(itemlist.parentNode);
+itemlist.parentNode.style.background='#f4f4f4';
+console.log(itemlist.parentNode.parentNode.parentNode) 
+
+console.log(itemlist.parentElement);
+itemlist.parentElement.style.background='#f4f4f4';
+console.log(itemlist.parentElement.parentElement.parentElement); 
+
+let itemlist=document.querySelector('#items');
+//console.log(itemlist.childNodes); ->Node list
+//HTML Collection
+//console.log(itemlist.children);
+console.log(itemlist.children[1]);
+itemlist.children[1].style.backgroundColor='yellow';
+
+console.log(itemlist.firstChild);
+console.log(itemlist.firstElementChild);
+itemlist.firstElementChild.textContent='Hello 1';
+
+let itemlist=document.querySelector('#items');
+
+console.log(itemlist.lastChild);
+console.log(itemlist.lastElementChild);
+itemlist.lastElementChild.textContent='Hello 4';
+
+console.log(itemlist.nextSibling);
+console.log(itemlist.nextElementSibling);
+itemlist.nextElementSibling.textContent='Hello 3';
+
+console.log(itemlist.previousSibling);
+console.log(itemlist.previousElementSibling);
+itemlist.nextElementSibling.textContent='Hello 3';*/
+
+let newdiv=document.createElement('div');
+newdiv.className='hello';
+newdiv.id='hello1';
+newdiv.setAttribute('title','Hello Div');
+let newdivtext=document.createTextNode('Hello World');
+newdiv.appendChild(newdivtext);
+
+let container=document.querySelector('header .container');
+let h1=document.querySelector('header h1');
+let l1=document.querySelector('li .list-group-item');
+console.log(newdiv);
+newdiv.style.fontSize='30px';
+let items1=document.querySelector('ul .list-group');
+container.insertBefore(newdiv,h1);
+items1.insertBefore(newdiv,l1);
+console.log(l1);
