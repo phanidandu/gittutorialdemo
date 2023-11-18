@@ -119,7 +119,7 @@ newdiv.style.fontSize='30px';
 let items1=document.querySelector('ul .list-group');
 container.insertBefore(newdiv,h1);
 items1.insertBefore(newdiv,l1);
-console.log(l1); */
+console.log(l1); 
 
 let form = document.getElementById('addForm');
 let itemList = document.getElementById('items');
@@ -173,7 +173,7 @@ function removeItem(e){
       itemList.removeChild(li);
     }
   }
-}
+} 
 
 // Filter Items
 function filterItems(e){
@@ -193,6 +193,18 @@ function filterItems(e){
     }
   });
 }
+*/
 
+let form=document.querySelector('#my-form');
+let nameInput=document.querySelector('#name');
+let emailInput=document.querySelector('#email');
+let msg=document.querySelector('#msg');
 
+form.addEventListener('submit',onSubmit);
 
+function onSubmit(e){
+    e.preventDefault();
+
+    localStorage.setItem('userDetails', nameInput.value);
+    localStorage.setItem('email', emailInput.value);
+}
