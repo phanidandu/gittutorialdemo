@@ -193,7 +193,7 @@ function filterItems(e){
     }
   });
 }
-*/
+
 
 let form=document.querySelector('#my-form');
 let nameInput=document.querySelector('#name');
@@ -208,3 +208,13 @@ function onSubmit(e){
     localStorage.setItem('userDetails', nameInput.value);
     localStorage.setItem('email', emailInput.value);
 }
+*/
+
+let obj={
+    name: 'xyz',
+    age: 55
+}
+
+let serialised = JSON.stringify(obj);
+localStorage.setItem('obj',serialised);
+console.log(localStorage);
