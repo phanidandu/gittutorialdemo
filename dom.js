@@ -210,11 +210,31 @@ function onSubmit(e){
 }
 */
 
-let obj={
-    name: 'xyz',
-    age: 55
-}
+let form=document.querySelector('#my-form');
+let nameInput=document.querySelector('#name');
+let emailInput=document.querySelector('#email');
+let number=document.querySelector('#PhoneNumber');
 
-let serialised = JSON.stringify(obj);
-localStorage.setItem('obj',serialised);
-console.log(localStorage);
+//let ul=document.createElement('ul');
+//ul.className = 'user-details';
+
+form.addEventListener('submit',onSubmit);
+
+
+function onSubmit(e){
+e.preventDefault();
+let li = document.createElement('li');
+  li.className = 'list-group-item';
+  li.appendChild(document.createTextNode(nameInput.value));
+  li.appendChild(document.createTextNode(emailInput.value));
+  li.appendChild(document.createTextNode(number.value));
+  form.appendChild(li);
+  console.log(li);
+  console.log('Name:'+ nameInput.value+'Email:'+ emailInput.value+'PhoneNumber:'+ number.value);
+
+  //let serialised = JSON.stringify(li);console.log(serialised);
+
+localStorage.setItem('username',nameInput.value);
+localStorage.setItem('email',emailInput.value);
+localStorage.setItem('number',number.value);
+}
