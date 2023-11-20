@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>JS For Beginners</title>
-    <link rel="stylesheet" href="style.css">
+    
   </head>
   <body>
     <header>
@@ -13,26 +13,62 @@
     </header>
 
     <section class="container">
-      <form id="my-form">
+      <form onsubmit="onSubmitting(e)" id="my-form">
         <h1>Add User</h1>
         <div class="msg"></div>
         <div>
-          <label for="name">Name:</label>
-          <input type="text" id="name">
+          <label for="username">Name:</label>
+          <input type="text" name="username">
         </div>
         <div>
           <label for="email">Email:</label>
-          <input type="text" id="email">
+          <input type="text" name="email">
         </div>
         <div>
             <label for="PhoneNumber">PhoneNumber:</label>
-            <input type="text" id="PhoneNumber">
+            <input type="text" name="PhoneNumber">
           </div>
         <input class="btn" type="submit" value="Submit">
       </form>
+      <ul id="list"></ul>
 
     </section>
-    
-    <script src="dom.js"></script>
-  </body>
+
+
+<script>       
+
+function onSubmitting(e){
+  e.preventDefault();
+  let name= e.target.username.value;
+  let emailid= e.target.email.value;
+  let number= e.target.PhoneNumber.value;
+
+  const obj={name,emailid, number};
+  localStorage.setItem(obj.emailid, JSON.stringify(obj));
+  showonscreen(obj);
+} 
+
+function showonscreen(obj){
+
+  let parent1=document.getElementById('list');
+  
+  let child1= document.createElement('li');
+  child.textContent= obj.name + '-' + obj.emailid + '-' + obj.number;
+
+  let deletebtn=document.createElement('Input');
+  deletebtn.type='button';
+  deletebtn.value='Delete';
+  
+  deletebtn.onclick = () => {
+     localStorage.removeItem(obj.emailid);
+     parent1.removeChild(child1);            
+  }
+
+  child1.appendChild(deletebtn);
+  parent1.appendChild(child1);
+} 
+
+  </script>
+
+</body>
 </html>
