@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -71,4 +72,78 @@ function showonscreen(obj){
   </script>
 
 </body>
-</html>
+</html> 
+-->
+
+<html>
+  <body>
+        <form onsubmit="store(event)">
+            
+              <label>Name:</label>
+              <input type="text" name="username" id="nm">
+              <label>Email:</label>
+              <input type="text" name="email" id="em">
+              <label>PhoneNumber:</label>
+                <input type="tel" name="PhoneNumber" id="pn">  
+            <button> Submit </button>
+          </form>
+
+          <ul id="listItems"></ul>
+  
+    <script>
+     function store(event){
+     event.preventDefault();
+     console.log(event);
+     const name= event.target.username.value;
+     const emailid= event.target.email.value;
+     const number= event.target.PhoneNumber.value;
+     
+     //localStorage.setItem('name',name);
+     //localStorage.setItem('email',emailid);
+     //localStorage.setItem('number',number);
+     console.log(name+'-'+ emailid+'-'+ number);
+     const obj={name,emailid, number};
+     localStorage.setItem(obj.name, JSON.stringify(obj));
+     showonscreen(obj);
+     } 
+
+     function showonscreen(obj){
+      const parentElem= document.getElementById('listItems');
+      const childElem = document.createElement('li');
+      childElem.textContent = obj.name + '-' + obj.emailid + '-' + obj.number;
+      
+      const deletebtn = document.createElement('Input');
+      deletebtn.type="button";
+      deletebtn.value="Delete";
+      
+      deletebtn.onclick = () => {
+        localStorage.removeItem(obj.name);
+        parentElem.removeChild(childElem);
+      } 
+      
+      const editbtn = document.createElement('Input');
+      editbtn.type= "button";
+      editbtn.value = "Edit";
+      
+      editbtn.onclick = () => {
+        localStorage.removeItem(obj.name);   
+        const nameInput = document.getElementById('nm');
+        const emailInput = document.getElementById('em');
+        const phoneInput = document.getElementById('pn');
+        
+        nameInput.value=obj.name;
+        emailInput.value=obj.emailid;
+        phoneInput.value=obj.number;
+
+        parentElem.removeChild(childElem);
+      }
+
+      childElem.appendChild(deletebtn);
+      childElem.appendChild(editbtn);
+      parentElem.appendChild(childElem);
+      //parentElem.innerHTML= parentElem.innerHTML + '<li> ${obj.name} + ${obj.email} + ${obj.number} <\li>'
+     }
+
+    </script>
+
+</body>
