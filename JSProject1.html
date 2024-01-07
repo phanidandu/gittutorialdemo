@@ -11,7 +11,7 @@
       <body>
         <div class="container">
             <div class="row">
-                <div class="col align-self-center">
+                <div class="col-md-6 align-self-center">
                     <h1 id="title-header">Expense Traker App</h1>
                 </div>
             </div>
@@ -43,7 +43,11 @@
         </div>    
          
         <div class="container">
+          <div class="row">
+            <div class="col-md-6 align-self-center">
             <ul id="list" class="list-group"></ul>
+            </div>
+          </div> 
         </div>
       
       <script>
@@ -70,7 +74,7 @@
             const deletebtn=document.createElement('input'); 
             deletebtn.type='button';
             deletebtn.value='Delete Expense';
-            deletebtn.classList="btn btn-danger btn-sm delete";
+            deletebtn.classList="btn w-25 btn-danger btn-sm delete";
 
             deletebtn.onclick = () => {
                 localStorage.removeItem(obj.description);   
@@ -80,7 +84,7 @@
             const editbtn=document.createElement('input'); 
             editbtn.type='button';
             editbtn.value='Edit Expense';
-            editbtn.classList="btn btn-primary btn-sm float-right edit";
+            editbtn.classList="btn w-25 btn-primary btn-sm float-right edit";
 
             editbtn.onclick = () => {
                 localStorage.removeItem(obj.description);   
@@ -99,7 +103,7 @@
             childElem.appendChild(editbtn);
             parentElem.appendChild(childElem);
           }
-
+//Ends
 
       </script>
     </body>
