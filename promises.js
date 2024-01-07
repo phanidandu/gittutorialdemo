@@ -153,7 +153,7 @@ create3rdPost().then( () => {
      })
 }) */
 
-const posts = [{title: 'POST1'}];
+const posts = [{title: 'POST1'},{title: 'POST2'}];
 const user= {
     username:'abc',
     lastactivitytime: '4th jun 23'
@@ -186,7 +186,41 @@ function updateLastUserActivityTime() {
     })
 }
 
-function userupdatespost(){
-    Promise.all([createPost,updateLastUserActivityTime]) 
-    .then(()=> )
+function deletePost(){
+    return new Promise((resolve, reject) => {
+        setTimeout( () => {
+            if(posts.length > 0){
+                const poppedElement  = posts.pop();
+                resolve(poppedElement);
+            } else {
+                reject("ERROR")
+            }
+        }, 1000)
+    })
 }
+
+function getposts(){
+  setTimeout( ()=>{
+    let output='';
+    posts.forEach((post)=> {
+      output += `<li>${post.title}</li>`;
+    })
+    document.body.innerHTML=output;
+  },1000)
+
+}
+function userupdatespost(){
+    Promise.all([createPost({title:'POST3'}),updateLastUserActivityTime()]) 
+    .then((postresolves,lastactivityresolves)=>{
+     console.log(lastactivityresolves);
+      getposts();
+      console.log(user.lastactivitytime);
+      deletePost().then( ()=>{
+        getposts()
+      })
+    })
+    .catch(err => console.log(err));
+}
+
+
+userupdatespost();
