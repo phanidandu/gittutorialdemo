@@ -106,7 +106,7 @@ function showonscreen(obj){
      console.log(name+'-'+ emailid+'-'+ number);
      const obj={name,emailid, number};
 
-     axios.post('https://crudcrud.com/api/c523b87291ee4d6fa15acc66c106b56f/appointmentData',obj)
+     axios.post('https://crudcrud.com/api/3984f5b19c1345dc8fd29e158bb55dc3/appointmentData',obj)
      .then((response)=>{
       showonscreen(response.data);
       console.log(response);
@@ -116,7 +116,7 @@ function showonscreen(obj){
      }
 
      window.addEventListener("DOMContentLoaded", ()=>{
-       axios.get('https://crudcrud.com/api/c523b87291ee4d6fa15acc66c106b56f/appointmentData')
+       axios.get('https://crudcrud.com/api/3984f5b19c1345dc8fd29e158bb55dc3/appointmentData')
        .then((response) =>{
         //console.log(response)
 
@@ -139,6 +139,14 @@ function showonscreen(obj){
     //} 
     })
     
+    function showNewUser(user){
+      document.getElementById('nm').value='';
+      document.getElementById('em').value='';
+      document.getElementById('pn').value='';
+
+      const parentElem= document.getElementById('listItems');
+      const childHTML = <li id=
+    }
 
      function showonscreen(obj){
       const parentElem= document.getElementById('listItems');
@@ -157,10 +165,12 @@ function showonscreen(obj){
       //  localStorage.removeItem(obj.name);
       //  parentElem.removeChild(childElem);
       // } 
+      
+      const id=obj._id;
 
       deletefromCrud.onclick = () => {
       //  let DeleteId; 
-      //  axios.get('https://crudcrud.com/api/c523b87291ee4d6fa15acc66c106b56f/appointmentData')
+      //  axios.get('https://crudcrud.com/api/3984f5b19c1345dc8fd29e158bb55dc3/appointmentData')
       //  .then((response) =>{
       //   for(var i=0;i<response.data.length;i++)
       //   {
@@ -169,20 +179,24 @@ function showonscreen(obj){
       //   }
       //   console.log(DeleteId);
   
-        const id=obj._id;
-        axios.delete(`https://crudcrud.com/api/c523b87291ee4d6fa15acc66c106b56f/appointmentData/${id}`)
+        
+        axios.delete(`https://crudcrud.com/api/3984f5b19c1345dc8fd29e158bb55dc3/appointmentData/${id}`)
         .then(res => console.log(res))
         .catch(err=> console.log(err))
         parentElem.removeChild(childElem);
        // })
       } 
       
-      const editbtn = document.createElement('Input');
-      editbtn.type= "button";
-      editbtn.value = "Edit";
+      //const editbtn = document.createElement('Input');
+      //editbtn.type= "button";
+      //editbtn.value = "Edit";
+
+      const editinCrudbtn = document.createElement('Input');
+      editinCrudbtn.type= "button";
+      editinCrudbtn.value = "EditinCrud";
       
-      editbtn.onclick = () => {
-        localStorage.removeItem(obj.name);   
+      editinCrudbtn.onclick = () => {
+        //localStorage.removeItem(obj.name);   
         const nameInput = document.getElementById('nm');
         const emailInput = document.getElementById('em');
         const phoneInput = document.getElementById('pn');
@@ -190,16 +204,34 @@ function showonscreen(obj){
         nameInput.value=obj.name;
         emailInput.value=obj.emailid;
         phoneInput.value=obj.number;
+        
+        const n=obj.name;
+        const e=obj.emailid;
+        const p=obj.number;
+        
+        axios.put(`https://crudcrud.com/api/3984f5b19c1345dc8fd29e158bb55dc3/appointmentData/${id}`,{
+          'name' : `${n}`,
+          'emailid' : `${e}`,
+          'number' : `${p}`
+        })
+        .then((response)=>console.log(response))
+        .catch((err)=>console.log(err));
+        
+        axios.delete(`https://crudcrud.com/api/3984f5b19c1345dc8fd29e158bb55dc3/appointmentData/${id}`)
+        .then((response)=>console.log(response))
+        .catch((err)=>console.log(err));
 
         parentElem.removeChild(childElem);
       }
 
       //childElem.appendChild(deletebtn);
       childElem.appendChild(deletefromCrud);
-      childElem.appendChild(editbtn);
+      childElem.appendChild(editinCrudbtn);
       parentElem.appendChild(childElem);
       //parentElem.innerHTML= parentElem.innerHTML + '<li> ${obj.name} + ${obj.email} + ${obj.number} <\li>'
      }
+
+     
 
     </script>
 
