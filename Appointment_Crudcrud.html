@@ -112,10 +112,33 @@ function showonscreen(obj){
       console.log(response);
      })
      .catch((err)=> console.log(err))
+     //localStorage.setItem(obj.name, JSON.stringify(obj));
      }
 
-     //localStorage.setItem(obj.name, JSON.stringify(obj));
- 
+     window.addEventListener("DOMContentLoaded", ()=>{
+       axios.get('https://crudcrud.com/api/c523b87291ee4d6fa15acc66c106b56f/appointmentData')
+       .then((response) =>{
+        console.log(response)
+
+        for(var i=0;i<response.data.length;i++)
+        {
+            showonscreen(response.data[i]);
+        }
+     })
+     .catch((error) => console.log(error))
+
+     //const localstorageobj= localstorage;
+     //const localstoragekeys= Object.keys(localstorageobj)
+      
+    // for(var i=0;i<localstoragekeys.length;i++)
+    //{
+    //    const key = localstoragekeys[i];
+    //    const userdetailsstring =  localstorageobj[key];
+    //    const userdetailsobj = JSON.parse(userdetailsstring);
+    //    showonscreen(userdetailsobj);   
+    //} 
+    })
+    
 
      function showonscreen(obj){
       const parentElem= document.getElementById('listItems');
