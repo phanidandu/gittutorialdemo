@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>REST API Integration </title>
+</head>
+
+<body>
+   <header>
+       <h1 align="center">Feedback System</h1>
+   </header>
+
+   <section class="container">
+    <h2>Overall Ratings</h2>
+    <form onsubmit="UpdateRating(event)" id="myForm">
+        <div class="Ratings">
+           <div>*<span id="Onestar">0</span></div>
+           <div>**<span id="Twostar">0</span></div>
+           <div>***<span id="Threestar">0</span></div>
+           <div>****<span id="Fourstar">0</span></div>
+           <div>*****<span id="Fivestar">0</span></div>
+        </div>
+
+        <h2>Feedback Form</h2>
+        <div class="FeedbackForm">
+           <label for="Name">Enter Your name:</label>
+           <input type="text" name="Name" id="nm">
+           <label for="rating">Choose Rating:</label>
+           <select name="rating" id="rt">
+               <option>1</option>
+               <option>2</option>
+               <option>3</option>
+               <option>4</option>
+               <option>5</option>
+           </select>
+           <button id="sub">SUBMIT</button>
+        </div>
+    </form>
+
+    <div>
+        <h2>ALL FEEDBACKS</h2>
+        <ul id="listRatings"></ul>
+    </div>
+
+   </section>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
+   <script>
+       function UpdateRating(event){
+        event.preventDefault();
+
+        const personName=event.target.Name.value;
+        const Rating=event.target.rating.value;
+
+        const obj={personName,Rating};
+
+       axios.post("https://crudcrud.com/api/693f1c432c5b45c1aea71b6e05e2fb3e/feedbackData",obj)
+       .then((response)=>{
+       showNewUserOnScreen(response.data)
+      })
+       .catch((err)=>console.log(err));
+       }
+
+       window.addEventListener("DOMContentLoaded",()=>{
+          axios.get("https://crudcrud.com/api/693f1c432c5b45c1aea71b6e05e2fb3e/feedbackData")
+          .then((response)=>
+          {
+            for(var i=0;i<response.data.length;i++)
+            {
+               showNewUserOnScreen(response.data[i]);
+            }
+          })
+          .catch((err)=>console.log(err));
+       })
+
+       let count=[0,0,0,0,0];
+
+       function showNewUserOnScreen(user,ID){
+          document.getElementById('nm').value='';
+          document.getElementById('rt').value='';
+          document.getElementById('sub').innerHTML='SUBMIT';
+          
+          const parentElem=document.getElementById('listRatings');
+          const childHTML=`<li id=${user._id}> ${user.personName} - ${user.Rating}
+                              <button onclick=deleteUser('${user._id}','${user.Rating}')>Delete</button>
+                              <button onclick=editUserDetails('${user._id}','${user.personName}','${user.Rating}')>Edit</button>
+                              </li>`
+          parentElem.innerHTML=parentElem.innerHTML+childHTML; 
+          let rating = parseInt(user.Rating);
+          updateCount(rating,0);           
+         }
+
+       function deleteUser(userId,rating){
+           axios.delete(`https://crudcrud.com/api/693f1c432c5b45c1aea71b6e05e2fb3e/feedbackData/${userId}`)
+           .then((response)=>{
+               removeUserFromScreen(userId)
+               updateCount(rating,1);
+           })
+           .catch((err)=>console.log(err));
+         }
+
+         function removeUserFromScreen(userId){
+             const parentElem=document.getElementById('listRatings')
+             const childElem=document.getElementById(userId)
+             if(childElem)
+               parentElem.removeChild(childElem)
+         }
+
+         function editUserDetails(userId,name,rating){
+            document.getElementById('nm').value=name;
+            document.getElementById('rt').value=rating;
+
+            const submitbtn=document.getElementById('sub');
+            submitbtn.innerHTML=`EDIT RATING`;
+            deleteUser(userId,rating);
+         }
+
+       function updateCount(r,value){
+            const counter1=document.getElementById('Onestar');
+            const counter2=document.getElementById('Twostar');
+            const counter3=document.getElementById('Threestar');
+            const counter4=document.getElementById('Fourstar');
+            const counter5=document.getElementById('Fivestar');
+
+             if(value==1){
+                    if(r==1)
+                    {
+                      count[0]--;
+                      counter1.textContent=count[0];
+                    }
+                    else if(r==2)
+                    {
+                     count[1]--;
+                     counter2.textContent=count[1];
+                    }
+                    else if(r==3)
+                    {
+                     count[2]--;
+                     counter3.textContent=count[2];
+                    }
+                    else if(r==4)
+                    {
+                     count[3]--;
+                     counter4.textContent=count[3];
+                    }
+                    else if(r==5)
+                    {
+                    count[4]--;
+                    counter5.textContent=count[4];
+                    }
+             } else if(value==0){
+               if(r==1)
+             {
+                count[0]++;
+                counter1.textContent=count[0];
+             }
+             else if(r==2)
+             {
+                count[1]++;
+                counter2.textContent=count[1];
+             }
+             else if(r==3)
+             {
+                count[2]++;
+                counter3.textContent=count[2];
+             }
+             else if(r==4)
+             {
+                count[3]++;
+                counter4.textContent=count[3];
+             }
+             else if(r==5)
+             {
+                count[4]++;
+                counter5.textContent=count[4];
+             }
+             }
+            console.log(count);
+       }
+
+   </script>
+
+</body>
+</html>
